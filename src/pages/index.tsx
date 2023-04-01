@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import mainImage from '../assets/main-image.svg'
 import CardItem from '@/components/CardItems'
+import { GetStaticProps } from 'next'
+import { stripe } from '@/lib/stripe'
 
 export default function Home() {
   return (
@@ -108,4 +110,14 @@ export default function Home() {
       </section>
     </main>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await stripe.products.list()
+
+  console.log(response)
+
+  return {
+    props: {},
+  }
 }
