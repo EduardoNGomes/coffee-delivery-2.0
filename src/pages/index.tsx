@@ -6,12 +6,16 @@ import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 import { ProductProps } from '@/types/ProductProps'
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
+import { useAppSelector } from '@/redux/hooks'
 
 interface HomeProps {
-  products: ProductProps[]
+  productsResponse: ProductProps[]
 }
 
-export default function Home({ products }: HomeProps) {
+export default function Home({ productsResponse }: HomeProps) {
+  const { products } = useAppSelector((state) => state.cartReducer)
+
+  console.log(products)
   return (
     <main>
       <section className="flex mt-28 gap-16 items-center">
@@ -64,7 +68,7 @@ export default function Home({ products }: HomeProps) {
       <section className="mt-40">
         <h2 className="font-bold text-4xl text-base-sub-title">Nossos cafés</h2>
         <div className="mt-14 grid grid-cols-4 gap-5">
-          {products.map((product) => (
+          {productsResponse.map((product) => (
             <CardItem key={product.id} product={product} />
           ))}
         </div>
@@ -79,7 +83,7 @@ export const getStaticProps: GetStaticProps = async () => {
     expand: ['data.default_price'],
   })
 
-  const products = response.data.map((product) => {
+  const productsResponse = response.data.map((product) => {
     const price = product.default_price! as Stripe.Price
 
     return {
@@ -97,7 +101,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      products,
+      productsResponse,
     },
   }
 }

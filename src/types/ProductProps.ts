@@ -4,4 +4,5 @@ export interface ProductProps {
   description: string
   image: string
   price: string
+  quantity?: number
 }

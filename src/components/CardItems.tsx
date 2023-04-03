@@ -4,11 +4,16 @@ import { ProductProps } from '@/types/ProductProps'
 import { useState } from 'react'
 import { ShoppingCart } from '@phosphor-icons/react'
 
+import { useAppDispatch } from '@/redux/hooks'
+import { increaseItem } from '@/redux/reduxFeatures/cart'
+
 interface CardItemProps {
   product: ProductProps
 }
 
 export default function CardItem({ product }: CardItemProps) {
+  const dispatch = useAppDispatch()
+
   const [quantity, setQuantity] = useState(1)
 
   function handleDecreaseQuantity() {
@@ -22,6 +27,10 @@ export default function CardItem({ product }: CardItemProps) {
     setQuantity((prevState) => prevState + 1)
   }
 
+  function handleAddProduct() {
+    dispatch(increaseItem({ ...product, quantity }))
+  }
+
   return (
     <div className="bg-base-card rounded-md rounded-tr-3xl rounded-bl-3xl relative flex flex-col gap-6 items-center p-5">
       <Image
@@ -32,7 +41,7 @@ export default function CardItem({ product }: CardItemProps) {
         className="-mt-10"
         priority
       />
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 flex-1">
         <h3 className="text-center font-bold text-xl text-base-sub-title">
           {product.name}
         </h3>
@@ -41,7 +50,7 @@ export default function CardItem({ product }: CardItemProps) {
         </p>
       </div>
 
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-2 items-center ">
         <p className="mr-3 text-base-text text-lg font-extrabold">
           {product.price}
         </p>
@@ -62,7 +71,11 @@ export default function CardItem({ product }: CardItemProps) {
         </div>
 
         <button className="bg-violet-800 rounded-md w-9 h-9 flex justify-center items-center">
-          <ShoppingCart weight="fill" className="text-white text-xl" />
+          <ShoppingCart
+            weight="fill"
+            className="text-white text-xl"
+            onClick={handleAddProduct}
+          />
         </button>
       </div>
     </div>
