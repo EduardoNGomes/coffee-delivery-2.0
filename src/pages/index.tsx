@@ -113,9 +113,12 @@ export default function Home() {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await stripe.products.list()
+  const response = await stripe.products.list({
+    limit: 20,
+    expand: ['data.default_price'],
+  })
 
-  console.log(response)
+  console.log(response.data)
 
   return {
     props: {},
