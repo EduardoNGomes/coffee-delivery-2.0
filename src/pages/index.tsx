@@ -6,16 +6,12 @@ import { stripe } from '@/lib/stripe'
 import Stripe from 'stripe'
 import { ProductProps } from '@/types/ProductProps'
 import { Coffee, Package, ShoppingCart, Timer } from '@phosphor-icons/react'
-import { useAppSelector } from '@/redux/hooks'
 
 interface HomeProps {
   productsResponse: ProductProps[]
 }
 
 export default function Home({ productsResponse }: HomeProps) {
-  const { products } = useAppSelector((state) => state.cartReducer)
-
-  console.log(products)
   return (
     <main>
       <section className="flex mt-28 gap-16 items-center">
