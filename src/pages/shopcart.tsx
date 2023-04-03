@@ -1,13 +1,14 @@
+import ShopCartCard from '@/components/ShopCartCard'
 import { useAppSelector } from '@/redux/hooks'
 import { MapPinLine } from '@phosphor-icons/react'
 
-export default function Payment() {
+export default function ShopCart() {
   const { products } = useAppSelector((state) => state.cartReducer)
 
   console.log(products)
 
   return (
-    <main className="mt-10">
+    <main className="mt-10 flex gap-8">
       <section>
         <h2 className="text-lg font-bold text-base-sub-title ">
           Complete seu pedido
@@ -90,7 +91,14 @@ export default function Payment() {
           </div>
         </aside>
       </section>
-      <section></section>
+      <section>
+        <h2 className="text-lg font-bold text-base-sub-title ">
+          Cafes selecionados
+          <aside className="bg-base-card rounded-md rounded-tr-3xl rounded-bl-3xl p-10 mt-4">
+            <ShopCartCard />
+          </aside>
+        </h2>
+      </section>
     </main>
   )
 }
