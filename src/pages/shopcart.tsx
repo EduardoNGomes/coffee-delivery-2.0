@@ -1,11 +1,25 @@
 import ShopCartCard from '@/components/ShopCartCard'
 import { useAppSelector } from '@/redux/hooks'
+import { selectorTotalValue } from '@/redux/reduxFeatures/cart/cartSelector'
 import { MapPinLine } from '@phosphor-icons/react'
+import Link from 'next/link'
 
 export default function ShopCart() {
   const { products } = useAppSelector((state) => state.cartReducer)
+  const totalQuantity = useAppSelector((state) => selectorTotalValue(state))
 
-  console.log(products)
+  const deliveryPrice = 5
+
+  if (products.length === 0) {
+    return (
+      <main className="flex flex-col items-center justify-center mt-10 p-10 bg-base-card rounded w-full text-center">
+        <h1 className="text-2xl leading-10 text-violet-600">Carrinho vazio</h1>
+        <Link href="/" className="text-base-title">
+          voltar
+        </Link>
+      </main>
+    )
+  }
 
   return (
     <main className="mt-10 flex gap-8">
@@ -101,13 +115,32 @@ export default function ShopCart() {
 
             <div id="prices" className="mt-6 flex flex-col gap-3">
               <p className="flex justify-between text-base-text text-sm leading-4">
-                Total de itens <span>R$ 29,70</span>
+                Total de itens:
+                <span>
+                  {' '}
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(totalQuantity)}
+                </span>
               </p>
               <p className="flex justify-between text-base-text text-sm leading-4">
-                Entrega <span>RS 5,00</span>
+                Entrega:
+                <span>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(deliveryPrice)}
+                </span>
               </p>
               <p className="flex justify-between text-base-sub-title text-xl leading-4">
-                Total <span>R$ 60,00</span>
+                Total:
+                <span>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(totalQuantity + deliveryPrice)}
+                </span>
               </p>
             </div>
             <button className="mt-6 w-full uppercase bg-yellow-500 text-white p-3 rounded leading-5 text-sm font-bold">

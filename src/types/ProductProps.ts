@@ -3,6 +3,7 @@ export interface ProductProps {
   name: string
   description: string
   image: string
-  price: string
+  price: number
   quantity?: number
+  formatPrice: string
 }

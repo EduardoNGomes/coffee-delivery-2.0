@@ -52,7 +52,7 @@ export default function CardItem({ product }: CardItemProps) {
 
       <div className="flex gap-2 items-center ">
         <p className="mr-3 text-base-text text-lg font-extrabold">
-          {product.price}
+          {product.formatPrice}
         </p>
         <div className="flex items-center justify-around p-1 w-16 h-10 bg-base-button rounded-lg">
           <button
@@ -70,12 +70,11 @@ export default function CardItem({ product }: CardItemProps) {
           </button>
         </div>
 
-        <button className="bg-violet-800 rounded-md w-9 h-9 flex justify-center items-center">
-          <ShoppingCart
-            weight="fill"
-            className="text-white text-xl"
-            onClick={handleAddProduct}
-          />
+        <button
+          className="bg-violet-800 rounded-md w-9 h-9 flex justify-center items-center"
+          onClick={handleAddProduct}
+        >
+          <ShoppingCart weight="fill" className="text-white text-xl" />
         </button>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import { ProductProps } from '../../../types/ProductProps'
 
-interface CartState {
+export interface CartState {
   products: ProductProps[]
 }
 
@@ -28,13 +28,32 @@ const cartSlice = createSlice({
 
     decreaseItem: (state, action: PayloadAction<ProductProps>) => {
       const filteredProducts = state.products.filter(
-        (product) => product.id !== String(action.payload),
+        (product) => product.id !== String(action.payload.id),
       )
       state.products = filteredProducts
+    },
+    increaseItemQuantity: (state, action: PayloadAction<ProductProps>) => {
+      state.products = state.products.map((product) =>
+        product.id === action.payload.id
+          ? { ...product, quantity: product.quantity! + 1 }
+          : product,
+      )
+    },
+    decreaseItemQuantity: (state, action: PayloadAction<ProductProps>) => {
+      state.products = state.products.map((product) =>
+        product.id === action.payload.id
+          ? { ...product, quantity: product.quantity! - 1 }
+          : product,
+      )
     },
   },
 })
 
-export const { increaseItem, decreaseItem } = cartSlice.actions
+export const {
+  increaseItem,
+  decreaseItem,
+  increaseItemQuantity,
+  decreaseItemQuantity,
+} = cartSlice.actions
 
 export default cartSlice.reducer
