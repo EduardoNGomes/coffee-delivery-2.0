@@ -1,11 +1,14 @@
 import Image from 'next/image'
 import Logo from '../assets/logo.svg'
 import { MapPin, ShoppingCart } from '@phosphor-icons/react'
+import Link from 'next/link'
 
 export default function Header() {
   return (
     <header className="flex justify-between ">
-      <Image alt="coffee delivery logo" src={Logo} width={84} height={40} />
+      <Link href="/">
+        <Image alt="coffee delivery logo" src={Logo} width={84} height={40} />
+      </Link>
       <div className="flex gap-3">
         <div className="h-10 bg-purple-100 p-2 rounded-md">
           <p className="flex gap-1 justify-center align-middle text-purple-700 font-normal text-sm ">
@@ -15,11 +18,13 @@ export default function Header() {
             Porto Alegre,RS
           </p>
         </div>
-        <button className="bg-yellow-100 p-2 rounded-md h-10">
-          <span>
-            <ShoppingCart weight="fill" className="text-yellow-800 text-xl" />
-          </span>
-        </button>
+        <Link href="/shopcart">
+          <button className="bg-yellow-100 p-2 rounded-md h-10">
+            <span>
+              <ShoppingCart weight="fill" className="text-yellow-800 text-xl" />
+            </span>
+          </button>
+        </Link>
       </div>
     </header>
   )

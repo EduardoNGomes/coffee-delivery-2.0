@@ -95,7 +95,24 @@ export default function ShopCart() {
         <h2 className="text-lg font-bold text-base-sub-title ">
           Cafes selecionados
           <aside className="bg-base-card rounded-md rounded-tr-3xl rounded-bl-3xl p-10 mt-4">
-            <ShopCartCard />
+            {products.map((product) => (
+              <ShopCartCard key={product.id} product={product} />
+            ))}
+
+            <div id="prices" className="mt-6 flex flex-col gap-3">
+              <p className="flex justify-between text-base-text text-sm leading-4">
+                Total de itens <span>R$ 29,70</span>
+              </p>
+              <p className="flex justify-between text-base-text text-sm leading-4">
+                Entrega <span>RS 5,00</span>
+              </p>
+              <p className="flex justify-between text-base-sub-title text-xl leading-4">
+                Total <span>R$ 60,00</span>
+              </p>
+            </div>
+            <button className="mt-6 w-full uppercase bg-yellow-500 text-white p-3 rounded leading-5 text-sm font-bold">
+              confirmar pedido
+            </button>
           </aside>
         </h2>
       </section>
