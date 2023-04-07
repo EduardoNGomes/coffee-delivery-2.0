@@ -1,12 +1,43 @@
 import ShopCartCard from '@/components/ShopCartCard'
+import { MagnifyingGlass, MapPinLine } from '@phosphor-icons/react'
+
 import { useAppSelector } from '@/redux/hooks'
 import { selectorTotalValue } from '@/redux/reduxFeatures/cart/cartSelector'
-import { MapPinLine } from '@phosphor-icons/react'
+
+import { useForm } from 'react-hook-form'
+
 import Link from 'next/link'
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const FormSchema = z.object({
+  zipCode: z
+    .string()
+    .min(1, 'Campo obrigatorio')
+    .max(9, 'Padrao de email: XXXXX-XXX')
+    .refine((value: any) => /^\d{2}\d{3}[-]\d{3}$/gm.test(value)),
+  street: z.string().min(1, 'Campo obrigatorio'),
+  houseNumber: z.string().min(1, 'Campo obrigatorio'),
+  complements: z.string().min(1, 'Campo obrigatorio'),
+  neighborhood: z.string().min(1, 'Campo obrigatorio'),
+  city: z.string().min(1, 'Campo obrigatorio'),
+  uf: z.string().min(1, 'Campo obrigatorio'),
+})
+
+type FormProps = z.infer<typeof FormSchema>
 
 export default function ShopCart() {
   const { products } = useAppSelector((state) => state.cartReducer)
   const totalQuantity = useAppSelector((state) => selectorTotalValue(state))
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormProps>({
+    resolver: zodResolver(FormSchema),
+  })
 
   const deliveryPrice = 5
 
@@ -21,6 +52,11 @@ export default function ShopCart() {
     )
   }
 
+  function onSubmit(data: FormProps) {
+    console.log(data)
+  }
+
+  const zip = watch('zipCode')
   return (
     <main className="mt-10 flex gap-8">
       <section>
@@ -39,70 +75,113 @@ export default function ShopCart() {
               </p>
             </div>
           </div>
-          <div id="address" className="flex flex-col gap-4">
-            <div id="zid-code">
-              <label htmlFor="zid-code" />
-              <input
-                type="text"
-                name="zid-code"
-                placeholder="CEP"
-                className="p-3 rounded bg-base-input border border-solid border-base-button"
-              />
+          <form id="address" className="flex flex-col gap-4 justify-between">
+            <div id="zipCode" className="flex items-center gap-2">
+              <label htmlFor="zipCode" className="flex flex-col gap-1">
+                <input
+                  type="text"
+                  placeholder="CEP"
+                  className="p-3 rounded bg-base-input border border-solid border-base-button"
+                  {...register('zipCode')}
+                />
+                {errors.zipCode && (
+                  <span className="text-sm text-red-600 ml-2 ">
+                    {errors.zipCode.message}
+                  </span>
+                )}
+              </label>
+              <button>
+                <MagnifyingGlass size={32} weight="bold" />
+              </button>
             </div>
             <div id="street">
-              <label htmlFor="street" />
-              <input
-                type="text"
-                name="street"
-                placeholder="Rua"
-                className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
-              />
+              <label htmlFor="street" className="flex flex-col gap-1">
+                <input
+                  type="text"
+                  placeholder="Rua"
+                  className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  // {...register('street')}
+                  value={zip}
+                  defaultValue=""
+                />
+                {errors.street && (
+                  <span className="text-sm text-red-600 ml-2 ">
+                    {errors.street.message}
+                  </span>
+                )}
+              </label>
             </div>
             <div id="number-complements" className="grid grid-cols-2 gap-3">
-              <label htmlFor="number">
+              <label htmlFor="number" className="flex flex-col gap-1">
                 <input
-                  type="number"
-                  name="number"
+                  type="text"
                   placeholder="Numero"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  {...register('houseNumber')}
                 />
+                {errors.houseNumber && (
+                  <span className="text-sm text-red-600 ml-2 ">
+                    {errors.houseNumber.message}
+                  </span>
+                )}
               </label>
-              <label htmlFor="complements">
+
+              <label htmlFor="complements" className="flex flex-col gap-1">
                 <input
-                  type="street"
-                  name="complements"
+                  type="text"
                   placeholder="Complemento"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  {...register('complements')}
                 />
+                {errors.complements && (
+                  <span className="text-sm text-red-600 ml-2 ">
+                    {errors.complements.message}
+                  </span>
+                )}
               </label>
             </div>
             <div id="address-information" className="grid grid-cols-3 gap-3">
-              <label htmlFor="neighborhood">
+              <label htmlFor="neighborhood" className="flex flex-col gap-1">
                 <input
                   type="text"
-                  name="neighborhood"
                   placeholder="Bairro"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  {...register('neighborhood')}
                 />
+                {errors.neighborhood && (
+                  <span className="text-sm text-red-600 ml-2 ">
+                    {errors.neighborhood.message}
+                  </span>
+                )}
               </label>
-              <label htmlFor="city">
+              <label htmlFor="city" className="flex flex-col gap-1">
                 <input
                   type="text"
-                  name="city"
                   placeholder="Cidade"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  {...register('city')}
                 />
+                {errors.city && (
+                  <span className="text-sm text-red-600 ml-2 ">
+                    {errors.city.message}
+                  </span>
+                )}
               </label>
-              <label htmlFor="uf">
+              <label htmlFor="uf" className="flex flex-col gap-1">
                 <input
                   type="text"
-                  name="uf"
                   placeholder="UF"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  {...register('uf')}
                 />
+                {errors.uf && (
+                  <span className="text-sm text-red-600 ml-2 ">
+                    {errors.uf.message}
+                  </span>
+                )}
               </label>
             </div>
-          </div>
+          </form>
         </aside>
       </section>
       <section>
@@ -117,7 +196,6 @@ export default function ShopCart() {
               <p className="flex justify-between text-base-text text-sm leading-4">
                 Total de itens:
                 <span>
-                  {' '}
                   {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL',
@@ -143,7 +221,10 @@ export default function ShopCart() {
                 </span>
               </p>
             </div>
-            <button className="mt-6 w-full uppercase bg-yellow-500 text-white p-3 rounded leading-5 text-sm font-bold">
+            <button
+              className="mt-6 w-full uppercase bg-yellow-500 text-white p-3 rounded leading-5 text-sm font-bold"
+              onClick={handleSubmit((data) => onSubmit(data))}
+            >
               confirmar pedido
             </button>
           </aside>

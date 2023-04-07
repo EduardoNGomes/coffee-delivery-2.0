@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { ShoppingCart } from '@phosphor-icons/react'
 
 import { useAppDispatch } from '@/redux/hooks'
-import { increaseItem } from '@/redux/reduxFeatures/cart'
+import { increaseItem } from '@/redux/reduxFeatures/cart/cartSlice'
 
 interface CardItemProps {
   product: ProductProps

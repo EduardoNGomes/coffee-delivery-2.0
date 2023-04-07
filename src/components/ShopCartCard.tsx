@@ -9,7 +9,7 @@ import {
   increaseItemQuantity,
   decreaseItem,
   decreaseItemQuantity,
-} from '@/redux/reduxFeatures/cart'
+} from '@/redux/reduxFeatures/cart/cartSlice'
 
 interface ShopCartCardProds {
   product: ProductProps

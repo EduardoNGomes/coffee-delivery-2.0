@@ -59,6 +59,7 @@ export default function Home({ productsResponse }: HomeProps) {
           alt="A big cup of coffee"
           width={476}
           height={360}
+          priority
         />
       </section>
       <section className="mt-40">
