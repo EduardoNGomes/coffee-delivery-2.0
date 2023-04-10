@@ -1,7 +1,7 @@
 import ShopCartCard from '@/components/ShopCartCard'
 import { MagnifyingGlass, MapPinLine } from '@phosphor-icons/react'
 
-import { useAppSelector } from '@/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { selectorTotalValue } from '@/redux/reduxFeatures/cart/cartSelector'
 
 import { useForm } from 'react-hook-form'
@@ -9,6 +9,8 @@ import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
+import { createAddress } from '@/redux/reduxFeatures/address/addressSlice'
 
 const FormSchema = z.object({
   zipCode: z
@@ -29,6 +31,8 @@ type FormProps = z.infer<typeof FormSchema>
 export default function ShopCart() {
   const { products } = useAppSelector((state) => state.cartReducer)
   const totalQuantity = useAppSelector((state) => selectorTotalValue(state))
+
+  const dispatch = useAppDispatch()
 
   const {
     register,
@@ -63,11 +67,30 @@ export default function ShopCart() {
   }
 
   function onSubmit(data: FormProps) {
+    dispatch(createAddress(data))
     console.log(data)
   }
 
   const { zipCode, city, complements, houseNumber, neighborhood, street, uf } =
     watch()
+
+  async function getData() {
+    if (zipCode.length !== 8) {
+      return alert('cep invalid')
+    }
+    const response = await axios.get(
+      `https://viacep.com.br/ws/${zipCode}/json/`,
+    )
+    if (response.status !== 200) {
+      return alert('cep invalid')
+    }
+
+    setValue('zipCode', response.data.cep)
+    setValue('city', response.data.localidade)
+    setValue('street', response.data.logradouro)
+    setValue('uf', response.data.uf)
+    setValue('neighborhood', response.data.bairro)
+  }
 
   return (
     <main className="mt-10 flex gap-8">
@@ -104,7 +127,7 @@ export default function ShopCart() {
                   </span>
                 )}
               </label>
-              <button>
+              <button onClick={getData} type="button">
                 <MagnifyingGlass size={32} weight="bold" />
               </button>
             </div>

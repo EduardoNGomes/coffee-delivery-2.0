@@ -4,11 +4,35 @@ import { MapPin, ShoppingCart } from '@phosphor-icons/react'
 import Link from 'next/link'
 import { selectorTotalProductsQuantity } from '@/redux/reduxFeatures/cart/cartSelector'
 import { useAppSelector } from '@/redux/hooks'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 export default function Header() {
+  const [neighborhood, setNeighborhood] = useState('Brasil')
+  const [uf, setUf] = useState('BR')
+
   const totalQuantityItem = useAppSelector((state) =>
     selectorTotalProductsQuantity(state),
   )
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(showPosition)
+
+    async function showPosition(position: any) {
+      const res = await axios.get(
+        'https://www.mapquestapi.com/geocoding/v1/reverse?key=TPWvRrsfpgGWBACqqXd94fbDcfVpy2WJ&location=' +
+          position.coords.latitude +
+          '%2C' +
+          position.coords.longitude +
+          '&outFormat=json&thumbMaps=false',
+      )
+
+      if (res.status === 200) {
+        setNeighborhood(res.data.results[0].locations[0].adminArea6)
+        setUf(res.data.results[0].locations[0].adminArea3)
+      }
+    }
+  }, [])
 
   return (
     <header className="flex justify-between ">
@@ -21,7 +45,7 @@ export default function Header() {
             <span>
               <MapPin weight="fill" className="text-violet-800 text-xl" />
             </span>
-            Porto Alegre,RS
+            {neighborhood},{uf}
           </p>
         </div>
         <Link href="/shopcart" replace>

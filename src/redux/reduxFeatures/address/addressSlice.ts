@@ -10,7 +10,7 @@ const initialState: AddressState = {
   address: {
     city: '',
     complements: '',
-    houseNumber: 0,
+    houseNumber: '',
     neighborhood: '',
     street: '',
     uf: '',

@@ -1,7 +1,7 @@
 export interface AddressProps {
   zipCode: string
   street: string
-  houseNumber: number
+  houseNumber: string
   complements: string
   neighborhood: string
   city: string
