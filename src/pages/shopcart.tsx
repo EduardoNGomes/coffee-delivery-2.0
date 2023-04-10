@@ -35,8 +35,18 @@ export default function ShopCart() {
     handleSubmit,
     watch,
     formState: { errors },
+    setValue,
   } = useForm<FormProps>({
     resolver: zodResolver(FormSchema),
+    defaultValues: {
+      zipCode: '',
+      city: '',
+      complements: '',
+      houseNumber: '',
+      neighborhood: '',
+      street: '',
+      uf: '',
+    },
   })
 
   const deliveryPrice = 5
@@ -56,7 +66,9 @@ export default function ShopCart() {
     console.log(data)
   }
 
-  const zip = watch('zipCode')
+  const { zipCode, city, complements, houseNumber, neighborhood, street, uf } =
+    watch()
+
   return (
     <main className="mt-10 flex gap-8">
       <section>
@@ -83,6 +95,8 @@ export default function ShopCart() {
                   placeholder="CEP"
                   className="p-3 rounded bg-base-input border border-solid border-base-button"
                   {...register('zipCode')}
+                  value={zipCode}
+                  onChange={(e) => setValue('zipCode', e.target.value)}
                 />
                 {errors.zipCode && (
                   <span className="text-sm text-red-600 ml-2 ">
@@ -100,9 +114,9 @@ export default function ShopCart() {
                   type="text"
                   placeholder="Rua"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
-                  // {...register('street')}
-                  value={zip}
-                  defaultValue=""
+                  {...register('street')}
+                  value={street}
+                  onChange={(e) => setValue('street', e.target.value)}
                 />
                 {errors.street && (
                   <span className="text-sm text-red-600 ml-2 ">
@@ -118,6 +132,8 @@ export default function ShopCart() {
                   placeholder="Numero"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
                   {...register('houseNumber')}
+                  value={houseNumber}
+                  onChange={(e) => setValue('houseNumber', e.target.value)}
                 />
                 {errors.houseNumber && (
                   <span className="text-sm text-red-600 ml-2 ">
@@ -132,6 +148,8 @@ export default function ShopCart() {
                   placeholder="Complemento"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
                   {...register('complements')}
+                  value={complements}
+                  onChange={(e) => setValue('complements', e.target.value)}
                 />
                 {errors.complements && (
                   <span className="text-sm text-red-600 ml-2 ">
@@ -147,6 +165,8 @@ export default function ShopCart() {
                   placeholder="Bairro"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
                   {...register('neighborhood')}
+                  value={neighborhood}
+                  onChange={(e) => setValue('neighborhood', e.target.value)}
                 />
                 {errors.neighborhood && (
                   <span className="text-sm text-red-600 ml-2 ">
@@ -160,6 +180,8 @@ export default function ShopCart() {
                   placeholder="Cidade"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
                   {...register('city')}
+                  value={city}
+                  onChange={(e) => setValue('city', e.target.value)}
                 />
                 {errors.city && (
                   <span className="text-sm text-red-600 ml-2 ">
@@ -173,6 +195,8 @@ export default function ShopCart() {
                   placeholder="UF"
                   className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
                   {...register('uf')}
+                  value={uf}
+                  onChange={(e) => setValue('uf', e.target.value)}
                 />
                 {errors.uf && (
                   <span className="text-sm text-red-600 ml-2 ">
