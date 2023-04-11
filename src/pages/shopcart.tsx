@@ -20,7 +20,7 @@ const FormSchema = z.object({
     .refine((value: any) => /^\d{2}\d{3}[-]\d{3}$/gm.test(value)),
   street: z.string().min(1, 'Campo obrigatorio'),
   houseNumber: z.string().min(1, 'Campo obrigatorio'),
-  complements: z.string().min(1, 'Campo obrigatorio'),
+  complements: z.string(),
   neighborhood: z.string().min(1, 'Campo obrigatorio'),
   city: z.string().min(1, 'Campo obrigatorio'),
   uf: z.string().min(1, 'Campo obrigatorio'),
@@ -66,9 +66,20 @@ export default function ShopCart() {
     )
   }
 
-  function onSubmit(data: FormProps) {
+  async function onSubmit(data: FormProps) {
     dispatch(createAddress(data))
-    console.log(data)
+
+    try {
+      const productsList = products.map((product) => {
+        return { price: product.defaultPriceId, quantity: product.quantity }
+      })
+
+      const response = await axios.post('/api/checkout', { productsList })
+
+      window.location.href = response.data.checkoutUrl
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const { zipCode, city, complements, houseNumber, neighborhood, street, uf } =
