@@ -36,7 +36,10 @@ export default function ShopCartCard({ product }: ShopCartCardProds) {
   }
 
   return (
-    <div id="item" className="w-96 flex gap-5 border-b-2 pb-6 mt-4">
+    <div
+      id="item"
+      className="flex flex-col items-center gap-5 border-b-2 pb-6 mt-4 md:w-96 md:flex-row md:items-start"
+    >
       <Image
         src={product.image}
         alt="Coffee's image"
@@ -50,17 +53,26 @@ export default function ShopCartCard({ product }: ShopCartCardProds) {
         <div id="increase-decrease" className=" flex gap-2">
           <div className="flex items-center gap-2 bg-base-button p-1 px-2 rounded">
             <button onClick={handleQuantityDecrease}>
-              <Minus weight="bold" className="text-violet-800 text-base" />
+              <Minus
+                weight="bold"
+                className="text-violet-800 text-base transition-all duration-300 hover:text-black"
+              />
             </button>
             <span className="text-sm">{quantity}</span>
             <button onClick={handleQuantityIncrease}>
-              <Plus weight="bold" className="text-violet-800 text-base" />
+              <Plus
+                weight="bold"
+                className="text-violet-800 text-base transition-all duration-300 hover:text-black"
+              />
             </button>
           </div>
-          <div id="remove" className="rounded bg-base-button">
+          <div
+            id="remove"
+            className="rounded bg-base-button transition-all duration-300 hover:bg-base-hover"
+          >
             <button
               onClick={handleRemoveItem}
-              className="flex items-center gap-1 text-xs text-base-text uppercase p-1 px-2"
+              className="flex items-center gap-1 text-sm text-base-text uppercase p-1 px-2 "
             >
               <Trash weight="bold" className="text-violet-800 " />
               remover

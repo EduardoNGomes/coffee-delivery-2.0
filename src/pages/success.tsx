@@ -21,7 +21,7 @@ export default function Success() {
   }, [])
 
   return (
-    <main className="flex justify-between items-center mt-40">
+    <main className="flex flex-col md:flex-row justify-between items-center p-10 md:mt-40 ">
       <section>
         <h1 className="text-yellow-700 font-extrabold text-4xl mb-2">
           Uhu! pedido confirmado

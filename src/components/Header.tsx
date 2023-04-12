@@ -35,7 +35,7 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="flex justify-between ">
+    <header className="flex justify-between p-2  max-w-6xl mt-0 mx-auto">
       <Link href="/" replace>
         <Image alt="coffee delivery logo" src={Logo} width={84} height={40} />
       </Link>
@@ -49,11 +49,14 @@ export default function Header() {
           </p>
         </div>
         <Link href="/shopcart" replace>
-          <button className="bg-yellow-100 p-2 rounded-md h-10 relative">
+          <button className="bg-yellow-200 p-2 rounded-md h-10 relative transition-all duration-300 hover:bg-yellow-500">
             <span>
-              <ShoppingCart weight="fill" className="text-yellow-800 text-xl" />
+              <ShoppingCart
+                weight="fill"
+                className="text-yellow-800 text-xl  "
+              />
             </span>
-            <span className=" bg-yellow-800 text-white text-xs  px-1  rounded-full absolute -top-1 -right-1">
+            <span className=" bg-yellow-800 text-white text-xs  w-4 h-4  rounded-full absolute -top-1 -right-1 flex justify-center items-center">
               {totalQuantityItem}
             </span>
           </button>

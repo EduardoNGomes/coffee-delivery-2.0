@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { ProductProps } from '@/types/ProductProps'
 
 import { useState } from 'react'
-import { ShoppingCart } from '@phosphor-icons/react'
+import { Minus, Plus, ShoppingCart } from '@phosphor-icons/react'
 
 import { useAppDispatch } from '@/redux/hooks'
 import { increaseItem } from '@/redux/reduxFeatures/cart/cartSlice'
@@ -56,22 +56,22 @@ export default function CardItem({ product }: CardItemProps) {
         </p>
         <div className="flex items-center justify-around p-1 w-16 h-10 bg-base-button rounded-lg">
           <button
-            className="text-base text-violet-700 p-1"
+            className="text-base text-violet-700 p-1 transition-all duration-300 hover:text-black"
             onClick={handleDecreaseQuantity}
           >
-            &minus;
+            <Minus />
           </button>
           <span className="text-base text-base-title">{quantity}</span>
           <button
-            className="text-base text-violet-700 p-1"
+            className="text-base text-violet-700 p-1 transition-all duration-300 hover:text-black"
             onClick={handleIncreaseQuantity}
           >
-            &#43;
+            <Plus />
           </button>
         </div>
 
         <button
-          className="bg-violet-800 rounded-md w-9 h-9 flex justify-center items-center"
+          className="bg-violet-800 rounded-md w-9 h-9 flex justify-center items-center transition-all duration-300 hover:bg-violet-500"
           onClick={handleAddProduct}
         >
           <ShoppingCart weight="fill" className="text-white text-xl" />

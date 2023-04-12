@@ -58,8 +58,13 @@ export default function ShopCart() {
   if (products.length === 0) {
     return (
       <main className="flex flex-col items-center justify-center mt-10 p-10 bg-base-card rounded w-full text-center">
-        <h1 className="text-2xl leading-10 text-violet-600">Carrinho vazio</h1>
-        <Link href="/" className="text-base-title">
+        <h1 className="text-2xl leading-10 text-violet-600">
+          Ainda não há produtos selecionados
+        </h1>
+        <Link
+          href="/"
+          className="text-base-title capitalize transition-all duration-300 hover:text-violet-600 hover:underline"
+        >
           voltar
         </Link>
       </main>
@@ -104,12 +109,12 @@ export default function ShopCart() {
   }
 
   return (
-    <main className="mt-10 flex gap-8">
+    <main className="mt-10 px-10 flex flex-col gap-8  md:flex-row">
       <section>
         <h2 className="text-lg font-bold text-base-sub-title ">
           Complete seu pedido
         </h2>
-        <aside className="bg-base-card p-10 mt-4 rounded-md">
+        <aside className="bg-base-card p-10 mt-4 rounded-md ">
           <div id="text" className="flex  gap-2 mb-8">
             <MapPinLine className="text-yellow-600 text-2xl" />
             <div>
@@ -121,13 +126,20 @@ export default function ShopCart() {
               </p>
             </div>
           </div>
-          <form id="address" className="flex flex-col gap-4 justify-between">
-            <div id="zipCode" className="flex items-center gap-2">
-              <label htmlFor="zipCode" className="flex flex-col gap-1">
+          <form id="address" className="flex flex-col gap-4 justify-between ">
+            <div
+              id="zipCode"
+              className="flex flex-col md:flex-row md:items-center gap-2 "
+            >
+              <label
+                htmlFor="zipCode"
+                className="flex flex-col justify-center gap-1 "
+              >
                 <input
+                  required
                   type="text"
                   placeholder="CEP"
-                  className="p-3 rounded bg-base-input border border-solid border-base-button"
+                  className="text-sm md:text-base p-3 rounded bg-base-input border border-solid border-base-button focus:outline-violet-600 focus:outline-1"
                   {...register('zipCode')}
                   value={zipCode}
                   onChange={(e) => setValue('zipCode', e.target.value)}
@@ -138,16 +150,27 @@ export default function ShopCart() {
                   </span>
                 )}
               </label>
-              <button onClick={getData} type="button">
-                <MagnifyingGlass size={32} weight="bold" />
+              <button
+                onClick={getData}
+                type="button"
+                className=" bg-yellow-500 md:bg-transparent p-2 rounded w-full md:w-10 flex justify-center md:justify-start"
+              >
+                <MagnifyingGlass
+                  weight="bold"
+                  className="text-sm md:text-2xl text-white md:text-yellow-500"
+                />
+                {errors.zipCode && (
+                  <span className="text-sm text-red-600 ml-2 ">{` `}</span>
+                )}
               </button>
             </div>
             <div id="street">
               <label htmlFor="street" className="flex flex-col gap-1">
                 <input
+                  required
                   type="text"
                   placeholder="Rua"
-                  className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  className="p-3 text-sm md:text-base rounded bg-base-input border border-solid border-base-button w-full focus:outline-violet-600 focus:outline-1  "
                   {...register('street')}
                   value={street}
                   onChange={(e) => setValue('street', e.target.value)}
@@ -159,12 +182,16 @@ export default function ShopCart() {
                 )}
               </label>
             </div>
-            <div id="number-complements" className="grid grid-cols-2 gap-3">
+            <div
+              id="number-complements"
+              className="grid grid-cols-1 gap-3 md:grid-cols-2"
+            >
               <label htmlFor="number" className="flex flex-col gap-1">
                 <input
+                  required
                   type="text"
                   placeholder="Numero"
-                  className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  className="p-3 text-sm md:text-base rounded bg-base-input border border-solid border-base-button w-full focus:outline-violet-600 focus:outline-1  "
                   {...register('houseNumber')}
                   value={houseNumber}
                   onChange={(e) => setValue('houseNumber', e.target.value)}
@@ -179,8 +206,8 @@ export default function ShopCart() {
               <label htmlFor="complements" className="flex flex-col gap-1">
                 <input
                   type="text"
-                  placeholder="Complemento"
-                  className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  placeholder="Complemento(opcional)"
+                  className="p-3 text-sm md:text-base rounded bg-base-input border border-solid border-base-button w-full focus:outline-violet-600 focus:outline-1  "
                   {...register('complements')}
                   value={complements}
                   onChange={(e) => setValue('complements', e.target.value)}
@@ -192,12 +219,16 @@ export default function ShopCart() {
                 )}
               </label>
             </div>
-            <div id="address-information" className="grid grid-cols-3 gap-3">
+            <div
+              id="address-information"
+              className="grid grid-cols-1 gap-3 md:grid-cols-3"
+            >
               <label htmlFor="neighborhood" className="flex flex-col gap-1">
                 <input
+                  required
                   type="text"
                   placeholder="Bairro"
-                  className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  className="p-3 text-sm md:text-base rounded bg-base-input border border-solid border-base-button w-full focus:outline-violet-600 focus:outline-1  "
                   {...register('neighborhood')}
                   value={neighborhood}
                   onChange={(e) => setValue('neighborhood', e.target.value)}
@@ -210,9 +241,10 @@ export default function ShopCart() {
               </label>
               <label htmlFor="city" className="flex flex-col gap-1">
                 <input
+                  required
                   type="text"
                   placeholder="Cidade"
-                  className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  className="p-3 text-sm md:text-base rounded bg-base-input border border-solid border-base-button w-full focus:outline-violet-600 focus:outline-1  "
                   {...register('city')}
                   value={city}
                   onChange={(e) => setValue('city', e.target.value)}
@@ -225,9 +257,10 @@ export default function ShopCart() {
               </label>
               <label htmlFor="uf" className="flex flex-col gap-1">
                 <input
+                  required
                   type="text"
                   placeholder="UF"
-                  className="p-3 rounded bg-base-input border border-solid border-base-button w-full"
+                  className="p-3 text-sm md:text-base rounded bg-base-input border border-solid border-base-button w-full focus:outline-violet-600 focus:outline-1  "
                   {...register('uf')}
                   value={uf}
                   onChange={(e) => setValue('uf', e.target.value)}
@@ -245,7 +278,7 @@ export default function ShopCart() {
       <section>
         <h2 className="text-lg font-bold text-base-sub-title ">
           Cafes selecionados
-          <aside className="bg-base-card rounded-md rounded-tr-3xl rounded-bl-3xl p-10 mt-4">
+          <aside className="bg-base-card rounded-md rounded-tr-3xl rounded-bl-3xl p-10 mt-4 ">
             {products.map((product) => (
               <ShopCartCard key={product.id} product={product} />
             ))}
