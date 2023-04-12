@@ -14,8 +14,8 @@ export default async function handle(
     return res.status(400).json({ error: `productsList not found` })
   }
 
-  const successUrl = 'http://localhost:3000/success'
-  const cancelUrl = 'http://localhost:3000/'
+  const successUrl = `${process.env.NEXT_URL}/success`
+  const cancelUrl = `${process.env.NEXT_URL}/`
 
   const session = await stripe.checkout.sessions.create({
     line_items: productsList,

@@ -11,6 +11,7 @@ import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
 import { createAddress } from '@/redux/reduxFeatures/address/addressSlice'
+import { useState } from 'react'
 
 const FormSchema = z.object({
   zipCode: z
@@ -31,6 +32,7 @@ type FormProps = z.infer<typeof FormSchema>
 export default function ShopCart() {
   const { products } = useAppSelector((state) => state.cartReducer)
   const totalQuantity = useAppSelector((state) => selectorTotalValue(state))
+  const [loading, setLoading] = useState(false)
 
   const dispatch = useAppDispatch()
 
@@ -73,6 +75,7 @@ export default function ShopCart() {
 
   async function onSubmit(data: FormProps) {
     dispatch(createAddress(data))
+    setLoading(true)
 
     try {
       const productsList = products.map((product) => {
@@ -85,6 +88,7 @@ export default function ShopCart() {
     } catch (error) {
       console.log(error)
     }
+    setLoading(false)
   }
 
   const { zipCode, city, complements, houseNumber, neighborhood, street, uf } =
@@ -157,7 +161,7 @@ export default function ShopCart() {
               >
                 <MagnifyingGlass
                   weight="bold"
-                  className="text-sm md:text-2xl text-white md:text-yellow-500"
+                  className="text-sm md:text-2xl text-white md:text-yellow-500 md:hover:text-yellow-400"
                 />
                 {errors.zipCode && (
                   <span className="text-sm text-red-600 ml-2 ">{` `}</span>
@@ -313,8 +317,9 @@ export default function ShopCart() {
               </p>
             </div>
             <button
-              className="mt-6 w-full uppercase bg-yellow-500 text-white p-3 rounded leading-5 text-sm font-bold"
+              className="mt-6 w-full uppercase transition-all duration-300 bg-yellow-500 hover:bg-yellow-400 text-white p-3 rounded leading-5 text-sm font-bold disabled:cursor-wait disabled:bg-yellow-900"
               onClick={handleSubmit((data) => onSubmit(data))}
+              disabled={!!loading}
             >
               confirmar pedido
             </button>
