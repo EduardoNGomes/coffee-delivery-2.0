@@ -24,6 +24,10 @@ const addressSlice = createSlice({
   reducers: {
     createAddress: (state, action: PayloadAction<AddressProps>) => {
       state.address = { ...action.payload }
+      localStorage.setItem(
+        '@coffee-delivery-address',
+        JSON.stringify(state.address),
+      )
     },
   },
 })
