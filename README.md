@@ -1,38 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+   :coffee: CoffeeDelivery v2.0
+</h1>
 
-## Getting Started
+<h2 align="center">
+  <img alt="Coffe Delivery" title="#NextLevelWeek" src="https://i.imgur.com/4wer0dr.png" />
+</h2>
 
-First, run the development server:
+## Project description
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+<p>Este projeto foi desenvolvido para que eu pudesse treinar todas as tecnologias que estou estudando no momento, o nome do projeto é Coffee delevery v2, pois ele aproveita o layout de um projeto anterior, pois o foco não foi design e sim nas techs que foram utilizadas para desenvolver a aplicação.</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Features :wrench:
+- ✅ Add items
+- ✅ Remove Items
+- ✅ Payment Simulation
+- ✅ Form validation
+- ✅ Localization
+- ✅ RESPONSIVE
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### 🛠 Tecnologias
+The following tools were used in building the project
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- [Next](https://nextjs.org/)
+- [TypeScript](https://styled-components.com/)
+- [Stripe](https://dashboard.stripe.com/)
+- [Redux](https://redux.js.org/)
+- [Zod](https://zod.dev/)
+- [Tailwind](https://tailwindcss.com/)
+- [React-hook-Form](https://react-hook-form.com/)
+- [VIACEP](https://viacep.com.br/)
+- [MapQuest](https://developer.mapquest.com/)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Author
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+ [Eduardo Nascimento Gomes](https://www.linkedin.com/in/eduardo-gomes-220610227/)
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+### Como utilizar
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Faça o downloand/clone do projeto ```git clone```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
