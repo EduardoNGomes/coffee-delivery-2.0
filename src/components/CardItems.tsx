@@ -29,6 +29,7 @@ export default function CardItem({ product }: CardItemProps) {
 
   function handleAddProduct() {
     dispatch(increaseItem({ ...product, quantity }))
+    return alert('produto adicionado com sucesso')
   }
 
   return (
