@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import mainImage from '../assets/main-image.svg'
+import mainImage from '../assets/main-image.png'
 import CardItem from '@/components/CardItems'
 import { GetStaticProps } from 'next'
 import { stripe } from '@/lib/stripe'

@@ -2,10 +2,13 @@ import Image from 'next/image'
 import { ProductProps } from '@/types/ProductProps'
 
 import { useState } from 'react'
-import { Minus, Plus, ShoppingCart } from '@phosphor-icons/react'
+import { Minus, Plus, ShoppingCart, WarningCircle } from '@phosphor-icons/react'
 
 import { useAppDispatch } from '@/redux/hooks'
 import { increaseItem } from '@/redux/reduxFeatures/cart/cartSlice'
+
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 interface CardItemProps {
   product: ProductProps
@@ -18,7 +21,11 @@ export default function CardItem({ product }: CardItemProps) {
 
   function handleDecreaseQuantity() {
     if (quantity === 1) {
-      return alert('Quantidade minina')
+      return toast.error('Quantidade mínima atingida', {
+        className: 'bg-red-700 text-white text-base',
+        progressClassName: `bg-white`,
+        icon: <WarningCircle className="text-white text-lg" />,
+      })
     }
     setQuantity((prevState) => prevState - 1)
   }
@@ -29,7 +36,9 @@ export default function CardItem({ product }: CardItemProps) {
 
   function handleAddProduct() {
     dispatch(increaseItem({ ...product, quantity }))
-    return alert('produto adicionado com sucesso')
+    toast.success('Produto adicionado ao carrinho', {
+      className: 'bg-violet-900 text-white text-base',
+    })
   }
 
   return (
@@ -71,12 +80,15 @@ export default function CardItem({ product }: CardItemProps) {
           </button>
         </div>
 
-        <button
-          className="bg-violet-800 rounded-md w-9 h-9 flex justify-center items-center transition-all duration-300 hover:bg-violet-500"
-          onClick={handleAddProduct}
-        >
-          <ShoppingCart weight="fill" className="text-white text-xl" />
-        </button>
+        <div>
+          <button
+            className="bg-violet-800 rounded-md w-9 h-9 flex justify-center items-center transition-all duration-300 hover:bg-violet-500"
+            onClick={handleAddProduct}
+          >
+            <ShoppingCart weight="fill" className="text-white text-xl" />
+          </button>
+          <ToastContainer autoClose={1000} />
+        </div>
       </div>
     </div>
   )

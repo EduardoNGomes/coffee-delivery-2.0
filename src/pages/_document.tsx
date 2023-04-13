@@ -13,6 +13,7 @@ export default function Document() {
           name="keywords"
           content="TypeScript, Next, Redux, React-hook-form, Zod, MapQuestApi, ViaCepAPI, Stripe"
         />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
       </Head>
       <body className="p-2 py-8  max-w-6xl mt-0 mx-auto">
         <Main />
