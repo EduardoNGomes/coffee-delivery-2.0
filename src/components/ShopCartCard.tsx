@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Minus, Plus, Trash, WarningCircle } from '@phosphor-icons/react'
+import { Minus, Plus, Trash } from '@phosphor-icons/react'
 import { useState } from 'react'
 import { ProductProps } from '../types/ProductProps'
 
@@ -26,9 +26,7 @@ export default function ShopCartCard({ product }: ShopCartCardProds) {
   function handleQuantityDecrease() {
     if (quantity === 1) {
       return toast.error('Quantidade mínima atingida', {
-        className: 'bg-red-700 text-white text-base',
-        progressClassName: `bg-white`,
-        icon: <WarningCircle className="text-white text-lg" />,
+        position: toast.POSITION.TOP_CENTER,
       })
     }
     setQuantity((prevState) => prevState! - 1)
@@ -68,8 +66,6 @@ export default function ShopCartCard({ product }: ShopCartCardProds) {
                 className="text-violet-800 text-base transition-all duration-300 hover:text-black"
               />
             </button>
-            <ToastContainer autoClose={1000} />
-
             <span className="text-sm">{quantity}</span>
             <button onClick={handleQuantityIncrease}>
               <Plus
@@ -89,6 +85,7 @@ export default function ShopCartCard({ product }: ShopCartCardProds) {
               <Trash weight="bold" className="text-violet-800 " />
               remover
             </button>
+            <ToastContainer autoClose={1000} />
           </div>
         </div>
       </div>

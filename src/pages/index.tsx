@@ -28,25 +28,25 @@ export default function Home({ productsResponse }: HomeProps) {
           <div>
             <ul className="mt-20 grid  gap-6 grid-cols-1 md:grid-cols-2">
               <li className="flex items-center gap-3 text-base-text text-base font-normal">
-                <div className="w-8 h-8 bg-yellow-700 flex items-center justify-center rounded-full">
+                <div className="w-8 h-8 p-2 bg-yellow-700 flex items-center justify-center rounded-full">
                   <ShoppingCart weight="fill" className="text-white" />
                 </div>
                 Compra simples e segura
               </li>
               <li className="flex items-center gap-3 text-base-text text-base font-normal">
-                <div className="w-8 h-8 bg-yellow-500 flex items-center justify-center rounded-full">
+                <div className="w-8 h-8 p-2 bg-yellow-500 flex items-center justify-center rounded-full">
                   <Timer weight="fill" className="text-white" />
                 </div>
                 Entrega rápida e rastreada
               </li>
               <li className="flex items-center gap-3 text-base-text text-base font-normal">
-                <div className="w-8 h-8 bg-base-text flex items-center justify-center rounded-full">
+                <div className="w-8 h-8 p-2 bg-base-text flex items-center justify-center rounded-full">
                   <Package weight="fill" className="text-white" />
                 </div>
                 Embalagem mantém o café intacto
               </li>
               <li className="flex items-center gap-3 text-base-text text-base font-normal">
-                <div className="w-8 h-8 bg-violet-800 flex items-center justify-center rounded-full">
+                <div className="w-8 h-8 p-2 bg-violet-800 flex items-center justify-center rounded-full">
                   <Coffee weight="fill" className="text-white" />
                 </div>
                 O café chega fresquinho até você

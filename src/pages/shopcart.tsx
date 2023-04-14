@@ -13,6 +13,9 @@ import axios from 'axios'
 import { createAddress } from '@/redux/reduxFeatures/address/addressSlice'
 import { useState } from 'react'
 
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 const FormSchema = z.object({
   zipCode: z
     .string()
@@ -55,8 +58,6 @@ export default function ShopCart() {
     },
   })
 
-  const deliveryPrice = 5
-
   if (products.length === 0) {
     return (
       <main className="flex flex-col items-center justify-center mt-10 p-10 bg-base-card rounded w-full text-center">
@@ -96,13 +97,17 @@ export default function ShopCart() {
 
   async function getData() {
     if (zipCode.length !== 8) {
-      return alert('cep invalid')
+      return toast.warning('Preencha os 8 dígitos(apenas números)', {
+        position: toast.POSITION.TOP_CENTER,
+      })
     }
     const response = await axios.get(
       `https://viacep.com.br/ws/${zipCode}/json/`,
     )
     if (response.status !== 200) {
-      return alert('cep invalid')
+      return toast.error('CEP inválido', {
+        position: toast.POSITION.TOP_CENTER,
+      })
     }
 
     setValue('zipCode', response.data.cep)
@@ -163,10 +168,9 @@ export default function ShopCart() {
                   weight="bold"
                   className="text-sm md:text-2xl text-white md:text-yellow-500 md:hover:text-yellow-400"
                 />
-                {errors.zipCode && (
-                  <span className="text-sm text-red-600 ml-2 ">{` `}</span>
-                )}
+                {errors.zipCode && <span className="h-12"> </span>}
               </button>
+              <ToastContainer autoClose={1000} />
             </div>
             <div id="street">
               <label htmlFor="street" className="flex flex-col gap-1">
@@ -297,22 +301,14 @@ export default function ShopCart() {
                   }).format(totalQuantity)}
                 </span>
               </p>
-              <p className="flex justify-between text-base-text text-sm leading-4">
-                Entrega:
-                <span>
-                  {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  }).format(deliveryPrice)}
-                </span>
-              </p>
+
               <p className="flex justify-between text-base-sub-title text-xl leading-4">
                 Total:
                 <span>
                   {new Intl.NumberFormat('pt-BR', {
                     style: 'currency',
                     currency: 'BRL',
-                  }).format(totalQuantity + deliveryPrice)}
+                  }).format(totalQuantity)}
                 </span>
               </p>
             </div>
