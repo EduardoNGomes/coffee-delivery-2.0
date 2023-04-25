@@ -46,7 +46,10 @@ export default function CardItem({ product }: CardItemProps) {
         priority
       />
       <div className="flex flex-col gap-2 flex-1">
-        <h3 className="text-center font-bold text-xl text-base-sub-title">
+        <h3
+          data-testid="h3"
+          className="text-center font-bold text-xl text-base-sub-title"
+        >
           {product.name}
         </h3>
         <p className="text-center font-normal text-base text-base-label">
@@ -69,7 +72,6 @@ export default function CardItem({ product }: CardItemProps) {
             {quantity}
           </span>
           <button
-            data-testid="buttonAdd"
             className="text-base text-violet-700 p-1 transition-all duration-300 hover:text-black"
             onClick={handleIncreaseQuantity}
           >
