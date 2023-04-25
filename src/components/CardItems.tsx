@@ -65,8 +65,11 @@ export default function CardItem({ product }: CardItemProps) {
           >
             <Minus />
           </button>
-          <span className="text-base text-base-title">{quantity}</span>
+          <span data-testid="span" className="text-base text-base-title">
+            {quantity}
+          </span>
           <button
+            data-testid="buttonAdd"
             className="text-base text-violet-700 p-1 transition-all duration-300 hover:text-black"
             onClick={handleIncreaseQuantity}
           >
