@@ -81,6 +81,7 @@ export default function CardItem({ product }: CardItemProps) {
 
         <div>
           <button
+            data-testid="shopButton"
             className="bg-violet-800 rounded-md w-9 h-9 flex justify-center items-center transition-all duration-300 hover:bg-violet-500"
             onClick={handleAddProduct}
           >

@@ -16,21 +16,23 @@ export default function Header() {
   )
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(showPosition)
-
-    async function showPosition(position: any) {
-      const res = await axios.get(
-        'https://www.mapquestapi.com/geocoding/v1/reverse?key=TPWvRrsfpgGWBACqqXd94fbDcfVpy2WJ&location=' +
-          position.coords.latitude +
-          '%2C' +
-          position.coords.longitude +
-          '&outFormat=json&thumbMaps=false',
-      )
-
-      if (res.status === 200) {
-        setNeighborhood(res.data.results[0].locations[0].adminArea6)
-        setUf(res.data.results[0].locations[0].adminArea3)
+    try {
+      navigator.geolocation.getCurrentPosition(showPosition)
+      async function showPosition(position: any) {
+        const res = await axios.get(
+          'https://www.mapquestapi.com/geocoding/v1/reverse?key=TPWvRrsfpgGWBACqqXd94fbDcfVpy2WJ&location=' +
+            position.coords.latitude +
+            '%2C' +
+            position.coords.longitude +
+            '&outFormat=json&thumbMaps=false',
+        )
+        if (res.status === 200) {
+          setNeighborhood(res.data.results[0].locations[0].adminArea6)
+          setUf(res.data.results[0].locations[0].adminArea3)
+        }
       }
+    } catch (error) {
+      console.log('Cannot get your location', error)
     }
   }, [])
 
@@ -56,7 +58,10 @@ export default function Header() {
                 className="text-yellow-800 text-xl  "
               />
             </span>
-            <span className=" bg-yellow-800 text-white text-xs  w-4 h-4  rounded-full absolute -top-1 -right-1 flex justify-center items-center">
+            <span
+              data-testid="allProductsQuantity"
+              className=" bg-yellow-800 text-white text-xs  w-4 h-4  rounded-full absolute -top-1 -right-1 flex justify-center items-center"
+            >
               {totalQuantityItem}
             </span>
           </button>
