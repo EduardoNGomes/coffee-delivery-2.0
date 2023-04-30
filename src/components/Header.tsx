@@ -32,7 +32,7 @@ export default function Header() {
         }
       }
     } catch (error) {
-      console.log('Cannot get your location', error)
+      console.log('Cannot get your location')
     }
   }, [])
 

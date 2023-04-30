@@ -73,7 +73,7 @@ describe('Test ShopCartCard  ', () => {
     await user.click(buttonDecrease)
     expect(quantity).toHaveTextContent('1')
   })
-  it('should not decrease quantity', async () => {
+  it('should change value total of product', async () => {
     render(
       <Provider store={store}>
         <ShopCartCard product={mockProduct} />
