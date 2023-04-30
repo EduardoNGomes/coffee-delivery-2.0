@@ -60,14 +60,22 @@ export default function ShopCartCard({ product }: ShopCartCardProds) {
         </h3>
         <div id="increase-decrease" className=" flex gap-2">
           <div className="flex items-center gap-2 bg-base-button p-1 px-2 rounded">
-            <button onClick={handleQuantityDecrease}>
+            <button
+              data-testid="buttonDecrease"
+              onClick={handleQuantityDecrease}
+            >
               <Minus
                 weight="bold"
                 className="text-violet-800 text-base transition-all duration-300 hover:text-black"
               />
             </button>
-            <span className="text-sm">{quantity}</span>
-            <button onClick={handleQuantityIncrease}>
+            <span data-testid="quantity" className="text-sm">
+              {quantity}
+            </span>
+            <button
+              data-testid="buttonIncrease"
+              onClick={handleQuantityIncrease}
+            >
               <Plus
                 weight="bold"
                 className="text-violet-800 text-base transition-all duration-300 hover:text-black"
@@ -79,6 +87,7 @@ export default function ShopCartCard({ product }: ShopCartCardProds) {
             className="rounded bg-base-button transition-all duration-300 hover:bg-base-hover"
           >
             <button
+              data-testid="removeButton"
               onClick={handleRemoveItem}
               className="flex items-center gap-1 text-sm text-base-text uppercase p-1 px-2 "
             >
@@ -90,7 +99,10 @@ export default function ShopCartCard({ product }: ShopCartCardProds) {
         </div>
       </div>
       <div className="price">
-        <h4 className="text-base-text text-base leading-4 whitespace-nowrap">
+        <h4
+          data-testid="allPrice"
+          className="text-base-text text-base leading-4 whitespace-nowrap"
+        >
           {new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL',
