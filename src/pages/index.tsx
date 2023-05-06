@@ -22,7 +22,7 @@ export default function Home({ productsResponse }: HomeProps) {
             </h1>
             <p className="text-base-sub-title text-sm font-normal md:text-xl ">
               Com o Coffee Delivery você recebe seu café onde estiver, a
-              qualquer hora
+              qualquer hora.
             </p>
           </div>
           <div>
